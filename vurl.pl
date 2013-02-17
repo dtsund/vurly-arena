@@ -323,6 +323,12 @@ my %session_var = (
 	drunk           => 0,
 	sober_timeout	=> undef,
 	ans             => 0,
+	#BattleCON stuff
+	first_player    => undef,
+	first_move      => undef,
+	second_player   => undef,
+	second_move     => undef,
+	trap            => undef,
 );
 
 my %alternative = (
@@ -750,6 +756,26 @@ my %command = (
 		'sub' => \&sober_up,
 		usage => '!sober',
 	},
+	pair          => {
+		'sub' => \&pair,
+		usage => '!pair [move]',
+	},
+	reveal        => {
+		'sub' => \&reveal,
+		usage => "!reveal",
+	},
+	settrap       => {
+		'sub' => \&settrap,
+		usage => "!settrap [trap]",
+	},
+	showtrap      => {
+		'sub' => \&showtrap,
+		usage => "!showtrap",
+	},
+	cleartrap     => {
+		'sub' => \&cleartrap,
+		usage => "!cleartrap",
+	},
 );
 
 my @maths_fns = qw(
@@ -765,7 +791,8 @@ my @utility_fns = qw(
 	eval      say        wikipedia  google
 	war       battlecon  bastion    devastation
 	ftl       tasen      komato     uncyclopedia
-	kalir     hanftl     sober
+	kalir     hanftl     sober      pair
+	reveal    settrap    showtrap   cleartrap
 );
 
 my @traditional_fns = qw(
@@ -2746,7 +2773,7 @@ sub ftl {
 	               );
 	
 	my $shipChosen = rand @ftlships;
-	if ($ftlships[$shipChosen] == "Osprey" && (rand 5) == 0)
+	if ($ftlships[$shipChosen] eq "Osprey" && (rand 5) == 0)
 	{
 		return "Space Penis";
 	}
@@ -2818,7 +2845,81 @@ sub hanftl {
 	return $hanftl[rand @hanftl];
 }
 
-sub !sober_up {
+sub sober_up {
 	$session_var{drunk} = 0;
 	return "/me shudders as her system is flooded with anti-alcohol";
+}
+
+sub pair {
+	#attack pair
+	my $arg = shift;
+	#player who submitted it
+	my $nick = $session_var{nick};
+	
+	if(!(defined $session_var{first_player}))
+	{
+		$session_var{first_player} = $nick;
+		$session_var{first_move} = $arg;
+		return "Move recieved from " . $nick . ".";
+	}
+	if($session_var{first_player} eq $nick)
+	{
+		$session_var{first_move} = $arg;
+		return "New move from " . $nick . ".";
+	}
+	if(!(defined $session_var{second_player}))
+	{
+		$session_var{second_player} = $nick;
+		$session_var{second_move} = $arg;
+		return "Moves recieved from " $session_var{first_player} . " and " . $nick . ".";
+	}
+	if($session_var{second_player} eq $nick)
+	{
+		$session_var{second_move} = $arg;
+		return "New move from " . $nick . ".";
+	}
+	
+	return "Ow, my head!  Only two players plz. :<";
+}
+
+sub reveal {
+	if(!(defined $session_var{first_player}))
+	{
+		return "But no cards are face-down!";
+	}
+	if(!(defined $session_var{second_player}))
+	{
+		$session_var{first_player} = undef;
+		$session_var{first_move} = undef;
+		return "Discarding the one attack pair played.";
+	}
+	my $returnstring = "<" . $session_var{first_player} . "> " . $session_var{first_move} . " vs. ";
+	$returnstring = $returnstring . "<" . $session_var{second_player} . "> " . $session_var{second_move};
+	
+	$session_var{first_player} = undef;
+	$session_var{first_move} = undef;
+	$session_var{second_player} = undef;
+	$session_var{second_move} = undef;
+	
+	return $returnstring;
+}
+
+sub settrap {
+	$session_var{trap} = shift;
+	return "Trap set.";
+}
+
+sub showtrap {
+	if(!(defined $session_var{trap}))
+	{
+		return "No trap was set!";
+	}
+	my $returnstring = $session_var{trap};
+	$session_var{trap} = undef;
+	return $returnstring;
+}
+
+sub cleartrap {
+	$session_var{trap} = undef;
+	return "Trap cleared.";
 }
