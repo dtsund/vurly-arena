@@ -2841,7 +2841,24 @@ sub hanftl {
 	               "This game hates me",
 	               "First ship I meet has two Burst Laser IIs.  WHY?",
 	               "FFFFFFFFFFFFFFFFFF",
-	               "AUGH"
+	               "AUGH",
+	               "Three sun beacons IN A ROW?",
+	               "What possessed me to play as the DA-SR 12 again?",
+	               "Piloting, shields, and drone control are all down. :<",
+	               "DEAD.",
+	               "im so dead",
+	               "help",
+	               "Oh god, which wire do I cut?",
+	               "NOOOOOOOO",
+	               "MANTIS BOARDERS *AND* A BOARDING DRONE?",
+	               "wait what",
+	               "WHY DOES A SECTOR 1 SHIP HAVE A GLAIVE BEAM",
+	               "Ioned shields in an asteroid field D:",
+	               "Where are hull repairs when you need them?",
+	               "OF COURSE the breach missile hits piloting.  OF COURSE.",
+	               "BREACH BOMB TO MY MEDBAY?  BUT I JUST MOVED MY ZOLTAN IN THERE TO HEAL!",
+	               "Oh great, my door control is on fire.",
+	               "Shield hacking ship with a beam drone?  REALLY?"
 	             );
 	
 	return $hanftl[rand @hanftl];
