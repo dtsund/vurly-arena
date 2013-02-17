@@ -319,7 +319,7 @@ my %session_var = (
 	server          => undef,
 	channel         => undef,
 	message_count   => 0,
-	rum             => 25,
+	rum             => 500000,
 	drunk           => 0,
 	sober_timeout	=> undef,
 	ans             => 0,
@@ -329,6 +329,7 @@ my %session_var = (
 	second_player   => undef,
 	second_move     => undef,
 	trap            => undef,
+	arena_channel   => "##arena",
 );
 
 my %alternative = (
@@ -776,6 +777,10 @@ my %command = (
 		'sub' => \&cleartrap,
 		usage => "!cleartrap",
 	},
+	setarena      => {
+		'sub' => \&setarena,
+		usage => "!setarena",
+	},
 );
 
 my @maths_fns = qw(
@@ -793,6 +798,7 @@ my @utility_fns = qw(
 	ftl       tasen      komato     uncyclopedia
 	kalir     hanftl     sober      pair
 	reveal    settrap    showtrap   cleartrap
+	setarena
 );
 
 my @traditional_fns = qw(
@@ -2874,28 +2880,40 @@ sub pair {
 	my $arg = shift;
 	#player who submitted it
 	my $nick = $session_var{nick};
+	#server we're on
+	my $server = $session_var{server};
+	#channel we're on
+	my $channel = $session_var{arena_channel};
 	
 	if(!(defined $session_var{first_player}))
 	{
 		$session_var{first_player} = $nick;
 		$session_var{first_move} = $arg;
-		return "Move recieved from " . $nick . ".";
+		my $returnstring = "Move recieved from " . $nick . ".";
+		$server->command("MSG $channel $returnstring");
+		return "'kay"
 	}
 	if($session_var{first_player} eq $nick)
 	{
 		$session_var{first_move} = $arg;
-		return "New move from " . $nick . ".";
+		my $returnstring = "New move from " . $nick . ".";
+		$server->command("MSG $channel $returnstring");
+		return "'kay"
 	}
 	if(!(defined $session_var{second_player}))
 	{
 		$session_var{second_player} = $nick;
 		$session_var{second_move} = $arg;
-		return "Moves recieved from " $session_var{first_player} . " and " . $nick . ".";
+		my $returnstring = "Moves recieved from " . $session_var{first_player} . " and " . $nick . ".";
+		$server->command("MSG $channel $returnstring");
+		return "'kay"
 	}
 	if($session_var{second_player} eq $nick)
 	{
 		$session_var{second_move} = $arg;
-		return "New move from " . $nick . ".";
+		my $returnstring = "New move from " . $nick . ".";
+		$server->command("MSG $channel $returnstring");
+		return "'kay"
 	}
 	
 	return "Ow, my head!  Only two players plz. :<";
@@ -2925,7 +2943,10 @@ sub reveal {
 
 sub settrap {
 	$session_var{trap} = shift;
-	return "Trap set.";
+	my $server = $session_var{server};
+	my $channel = $session_var{arena_channel};
+	$server->command("MSG $channel Trap set.");
+	return "'kay";
 }
 
 sub showtrap {
@@ -2941,4 +2962,11 @@ sub showtrap {
 sub cleartrap {
 	$session_var{trap} = undef;
 	return "Trap cleared.";
+}
+
+sub setarena {
+	#set the BattleCON arena channel.
+	my $channel = $session_var{target};
+	$session_var{arena_channel} = $channel;
+	return "BattleCON arena channel set to $channel.";
 }
