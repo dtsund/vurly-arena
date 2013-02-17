@@ -937,6 +937,8 @@ my %autoresponse = (
 		=> sub { return '!flib' },
 	qr/^\/me pours tea on vurl$/
 		=> sub { return [qq(doesn't like tea), "ACTION"] },
+	qr/(^|\W)homre($|\W)/i
+		=> sub { return "In trouble!  DRIVE!  DRIVE!  DRIVE!" },
 );
 
 #my @random_responses = (
