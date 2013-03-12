@@ -2864,7 +2864,8 @@ sub hanftl {
 	               "OF COURSE the breach missile hits piloting.  OF COURSE.",
 	               "BREACH BOMB TO MY MEDBAY?  BUT I JUST MOVED MY ZOLTAN IN THERE TO HEAL!",
 	               "Oh great, my door control is on fire.",
-	               "Shield hacking ship with a beam drone?  REALLY?"
+	               "Shield hacking ship with a beam drone?  REALLY?",
+	               "OH GOD THEY ACTUALLY HIT WITH A FIRE BEAM"
 	             );
 	
 	return $hanftl[rand @hanftl];
