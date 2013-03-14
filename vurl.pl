@@ -2865,7 +2865,8 @@ sub hanftl {
 	               "BREACH BOMB TO MY MEDBAY?  BUT I JUST MOVED MY ZOLTAN IN THERE TO HEAL!",
 	               "Oh great, my door control is on fire.",
 	               "Shield hacking ship with a beam drone?  REALLY?",
-	               "OH GOD THEY ACTUALLY HIT WITH A FIRE BEAM"
+	               "OH GOD THEY ACTUALLY HIT WITH A FIRE BEAM",
+	               "Why does the Flagship have a Defense II drone?"
 	             );
 	
 	return $hanftl[rand @hanftl];
