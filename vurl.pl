@@ -2866,7 +2866,8 @@ sub hanftl {
 	               "Oh great, my door control is on fire.",
 	               "Shield hacking ship with a beam drone?  REALLY?",
 	               "OH GOD THEY ACTUALLY HIT WITH A FIRE BEAM",
-	               "Why does the Flagship have a Defense II drone?"
+	               "Why does the Flagship have a Defense II drone?",
+	               "Christ, just hit four 'NOPE NOTHING' beacons in a row"
 	             );
 	
 	return $hanftl[rand @hanftl];
