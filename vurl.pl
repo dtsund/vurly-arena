@@ -2559,7 +2559,7 @@ sub message {
 		my ($what_to_say, $how_to_say_it);
 		if (ref $args ne 'ARRAY')
 		{
-			my %cmds = ( kick => 'KICK', me => 'ACTION' );
+			my %cmds = ( me => 'ACTION' );
 			$what_to_say = $func->($args);
 			if ($what_to_say =~ m!^/(\w+)! and exists $cmds{$1})
 			{
