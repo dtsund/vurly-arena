@@ -2561,6 +2561,9 @@ sub message {
 		{
 			my %cmds = ( me => 'ACTION' );
 			$what_to_say = $func->($args);
+			if ($what_to_say =~ m/^!/) { # some people just can't be trusted with a robot
+				return;
+            }
 			if ($what_to_say =~ m!^/(\w+)! and exists $cmds{$1})
 			{
 				$how_to_say_it = $cmds{$1};
