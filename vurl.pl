@@ -2822,7 +2822,8 @@ sub kalir {
 	                     "ALIVE.",
 	                     "DEAD.",
 	                     "LEG.",
-	                     "MAXIMUM KILLDUDES."
+	                     "MAXIMUM KILLDUDES.",
+	                     "CRAB."
 	                   );
 	
 	return $kalirphrases[rand @kalirphrases];
