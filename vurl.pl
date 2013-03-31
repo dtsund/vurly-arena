@@ -260,18 +260,14 @@ my %constant = (
 
 # These are the hostnames of the people who own vurl. These people can use !eval and suchlike, so ensure only trusted people match the pattern okay
 my @V_HOSTNAME_ENDINGS = (
-	'@nw-A9C23401.net', # what is this?
+	'@nw-A9C23401.net', # nexusnet autohostmask
 	'badger@satgnu\.net',
-	# 'i=badger@gateway*',
 	'@unaffiliated/asema',
 	'@unaffiliated/kalir',
 	'~detasund@*',
 	'~zetsubou@*',
 	'@unaffiliated/quairel',
-	'@MisterBen\.users\.quakenet\.org',
 	'@tremulous/developer/benmachine',
-	'@gateway/shell/wilcox-tech.com/.*'
-	## '^al@meeb\.org$',
 );	
 	## There might be a problem with putting vurl's hostname on the list: vulnerability with /msg?
 	## mwa deems *@satgnu.net to be trustworthy :P
@@ -436,13 +432,10 @@ my %command = (
 		'sub' => \&celebrate,
 		usage => "!celebrate",
 	},
-#	beep            => ($constant{V_BEEP_ENABLED}) ? \&beep : undef,
-#	FIXME: inexplicable lockups resulting from blurge
 	blurge          => {
 		'sub' => \&blurge,
 		usage => "!blurge",
 	},
-#	cat             => \&cat,
 	spleen          => {
 		'sub' => \&spleen,
 		usage => "!spleen",
@@ -465,11 +458,6 @@ my %command = (
 					return (wantarray) ? "<3 $n" : "$n (<3)"; }, 
 		usage => '!<3 someone',
 	},
-#	'<£'		=> {
-#		'sub' => sub { my $n = shift||$session_var{nick};
-#					return (wantarray) ? "<£ $n" : "$n (<£)"; },
-#		usage => "!<£ someone',
-#	},
 	nick		=> {
 		'sub' => \&nickchange,
 		usage => "!nick foo",
@@ -501,10 +489,6 @@ my %command = (
 		'sub' => \&roll_average,
 		usage => "!avroll [dice]d[sides]+[modifier]"
 	},
-#	'deck'		=> {
-#		'sub' => \&deck,
-#		usage => "!deck"
-#	},
 	'define'	=> {
 		'sub' => \&define,
 		usage => "!define foo"
@@ -681,10 +665,10 @@ my %command = (
 		'sub' => \&auth,
 		usage => '!auth',
 	},
-#	vurlisms        => {
-#		'sub' => \&vurlisms,
-#		usage => "!vurlisms",
-#	},
+	vurlisms        => {
+		'sub' => \&vurlisms,
+		usage => "!vurlisms",
+	},
 #	scripting       => {
 #		'sub' => \&scripting,
 #		usage => "!scripting",
@@ -834,7 +818,6 @@ my %autoresponse = (
 				return ':\/';
 			}
 		},
-#	qr/:D/  => sub { return ':D' },
 	qr/(?:\s|^)(?:y'?)?ar+(?:\s|$)/i
 		=> \&yarr,
 	qr/(\boh de[ea]r\b)+/i
@@ -842,10 +825,6 @@ my %autoresponse = (
 	qr/^!help$/ => sub { return 'http://badger.satgnu.net/vurlhelp.txt' },
 	qr/dears/ => sub { return 'mhmhmhmhm, dears' },
 	qr/mhm(hm)+/ => sub { return 'mhmhmhmhm, dears' },
-#	qr/(bacon ?)+/i
-#		=> \&bacon,
-	qr/(?:\s|^)Bull Fucking Shit(?:.)/i
-		=> sub { return "What ARBITRARY silliness." },
 	qr/^:$/
 		=> sub { return ':'; },
 	qr/^tanks$/i 
@@ -856,42 +835,14 @@ my %autoresponse = (
 		=> \&han,
 	qr/^nukes$/i
 		=> \&han,
-#	qr/(^|[^.])\.\.$/
-#		=> sub { return ["$session_var{nick} AGH DIE DIE DIE", "KICK"]; },
-#	qr/defcon/i
-#	=> sub { return ["declares thermonuclear war upon everyone", "ACTION"] },
-#	qr/^madness\?$/i
-#		=> sub { return ["$session_var{nick}", "OP"]; },
-#        qr/^delicious\?$/i
-#                => sub { return ["$session_var{nick}", "OP"]; },
 	qr/^this is spa+rta+/i
 		=> sub { return ["$session_var{nick} kicked down an oversized well", "KICK"]; },
-#	qr/^SPA+RTA+/
-#		=> sub { return ["$session_var{nick} kicked down an oversized well", "KICK"]; },
   	qr/\^_+\^/
 		=> sub { return '^_^'; },
-#	qr/>_>/
-#		=> sub { return '<_<'; },
-#	qr/<_</
-#		=> sub {return '>_>'; },
-#	qr/^oic$/i
-#		=> sub { return ["$session_var{nick} stop saying that ¬_¬", "KICK"]
-#				if ($session_var{nick} =~ m/^tim\`*$/i);
-#				return;
-#			},
-#	qr/[><]_[><]/
-#		=> sub { return ["$session_var{nick} stop saying that ¬_¬", "KICK"]
-#				if ($session_var{nick} =~ m/benmachine/);
-#				return;
-#			},
-#	qr/vassal/
-#		=> sub { return "vassal " x rand(10); },
 	qr/(^|\W)rum($|\W)/i
 		=> \&rum_autoresponse,
 	qr/^marvin/i
 		=> sub { return "lol emo"; },
-#	qr/depressed/i
-#		=> sub { return "lol emo"; },
 	qr/^o rly\?*/i
 		=> sub { return "ya rly"; },
 	qr/^ya rly!*/i
@@ -1060,9 +1011,7 @@ sub roll {
         {
                 return "No match, sorry";
         }
-#	if ($prefix =~ m/^Asema\`*$/i) {
-#		return "Asema: 20";
-#	}
+		
         $prefix .= ': (';
         if(defined $1) {
                 $times = $1;
@@ -1297,16 +1246,6 @@ sub char {
         return (wantarray) ? ["recommends $response", "ACTION"] : $response;
 }
 
-#sub deck {
-#	my @responses = @{$global_var{manythings}};
-#	my $response = $responses[int rand($#responses)];
-#	switch ($response) {
-#		case "balance" { return "You have drawn the Balance card! Your alignment changes drastically!" }
-#		case "comet"   { return "You have drawn the Comet card! A Zombie Dog appears - defeat it to gain power."
-#		case "donjon"  { return "You have drawn the Donjon card! A cage materialises around you, imprisoning you!"
-#		}
-#}
-
 sub ohdear {
 	my @ohdears = $session_var{text} =~ m/\boh de[ea]r\b/ig;
 	my $deer = grep { /deer/ } @ohdears;
@@ -1404,7 +1343,6 @@ sub tea {
 	                     :  q{tea (yuck!)} )
 		if ($person eq 'vurl');
 
-	# !tea is eeeee's prerogative, but we want to accommodate %(!tea)
 	return qq(tea for $person) unless wantarray;
 	return;
 }
@@ -1565,28 +1503,6 @@ sub celebrate {
 	return (wantarray) ? [qq{celebrates. woo. <|:)}, "ACTION"] : "Hooraaayyy!!";
 }
 
-=pod
-sub beep {
-	my $note = shift;
-
-	if(!defined $note) {
-		`beep`;
-		return (wantarray) ? qq(*beep* has occurred) : "*beep*";
-	}
-	else {
-		$note =~ m/[^0-9\s]/ and return qq(MSG $session_var{target} $note isn't an integer, foo');
-		@notes = split /\s/, $note;
-
-		$bum_note = grep { ($_ <=  20 or $_ >= 20000) and $_ != 0 } @notes;
-		return qq(MSG $session_var{target} $bum_note is out of range.) if defined $bum_note;
-		
-		$command = join("", map { "-f $_ -n " } @notes);
-		$command =~ s/-f 0 /-D 200 /g;
-		`beep $command`;
-		return (wantarray) ? qq(beeped: @notes) : "lots of beeps :D";
-	}
-}
-=cut
 sub blurge {
 	my ($messages, $verbs, $adverbs, $scripts) = (
 		$session_var{message_count},
@@ -1674,13 +1590,6 @@ sub randomkick {
 	my $nick = $session_var{nick};
 	
 	return (wantarray) ? ["$nick :(", "KICK"] : "$nick :(" if(!$constant{V_RANDOMKICK_ENABLED});
-
-	# what.
-	#if (grep { $_ eq 'OneCruelBagel' } @nicks && !$session_var{kicked_laurence}) {
-	#	$session_var{kicked_laurence} = 1;
-	#	return (wantarray) ? ["OneCruelBagel", "KICK"] : "OneCruelBagel";
-	#}
-	#$session_var{kicked_laurence} = 0;
 	return (wantarray) ? [$nicks[rand($#nicks)], "KICK"] : $nicks[rand($#nicks)];
 }
 
@@ -2090,6 +1999,8 @@ sub vars {
 	}
 	return join (', ', @vals);
 }
+
+# FIXME: reinstate vurlisms &c. to replace makeshift !help
 
 sub maths {
 	my @fns;
@@ -2561,6 +2472,9 @@ sub message {
 		{
 			my %cmds = ( me => 'ACTION' );
 			$what_to_say = $func->($args);
+			if ($what_to_say =~ m/^!/) { # some people just can't be trusted with a robot
+				return;
+            }
 			if ($what_to_say =~ m!^/(\w+)! and exists $cmds{$1})
 			{
 				$how_to_say_it = $cmds{$1};
