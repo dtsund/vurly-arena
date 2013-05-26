@@ -2930,7 +2930,7 @@ sub environment {
     {
         return "No environment set!";
     }
-    $session_var{env_coords} = [];
-    $session_var{env_coords} = [];
+    @{$session_var{env_coords}} = [];
+    @{$session_var{env_coords}} = [];
     return $returnstring;
 }
