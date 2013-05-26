@@ -2923,7 +2923,7 @@ sub environment {
     my $returnstring = "";
     for (my $i = 0; $i < @{$session_var{env_coords}}; $i++)
     {
-        $returnstring = "Position " . $session_var{env_coords}[$i] . ": " . $session_var{env_tokens}[$i] . ".  ";
+        $returnstring = $returnstring . "Position " . $session_var{env_coords}[$i] . ": " . $session_var{env_tokens}[$i] . ".  ";
     }
     
     if($returnstring eq '')
