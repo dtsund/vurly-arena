@@ -325,6 +325,8 @@ my %session_var = (
 	second_player   => undef,
 	second_move     => undef,
 	trap            => undef,
+	env_coords      => [],
+	env_tokens      => [],
 	arena_channel   => "##arena",
 );
 
@@ -761,6 +763,14 @@ my %command = (
 		'sub' => \&cleartrap,
 		usage => "!cleartrap",
 	},
+	setenviro => {
+		'sub' => \&setenviro,
+		usage => "!setenviro [position] [token]",
+	},
+	environment => {
+		'sub' => \&environment,
+		usage => "!environment",
+	},
 	setarena      => {
 		'sub' => \&setarena,
 		usage => "!setarena",
@@ -782,6 +792,7 @@ my @utility_fns = qw(
 	ftl       tasen      komato     uncyclopedia
 	kalir     hanftl     sober      pair
 	reveal    settrap    showtrap   cleartrap
+	setenviro environment
 	setarena
 );
 
@@ -2893,4 +2904,33 @@ sub setarena {
 	my $channel = $session_var{target};
 	$session_var{arena_channel} = $channel;
 	return "BattleCON arena channel set to $channel.";
+}
+
+sub setenviro {
+    my $input = shift;
+    my @inputlist = split(' ', $input);
+    if(@inputlist[1] eq '')
+    {
+        return "Usage: !setenviro [position] [token]";
+    }
+    push($session_var{env_coords}, $inputlist[0]);
+    push($session_var{env_tokens}, $inputlist[1]);
+    
+    return "Environment marker set.";
+}
+
+sub environment {
+    my $returnstring = "";
+    for (my $i = 0; $i < $session_var{env_coords}; $i++)
+    {
+        $returnstring = "Position " . $session_var{env_coords}[$i] . ": " . $session_var{env_tokens} . ".  ";
+    }
+    
+    if($returnstring eq '')
+    {
+        return "No environment set!";
+    }
+    $session_var{env_coords} = [];
+    $session_var{env_coords} = [];
+    return $returnstring;
 }
