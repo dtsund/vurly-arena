@@ -2908,7 +2908,7 @@ sub setarena {
 
 sub setenviro {
     my $input = shift;
-    my @inputlist = split(' ', $input);
+    my @inputlist = split(' ', $input, 2);
     if(@inputlist[1] eq '')
     {
         return "Usage: !setenviro [position] [token]";
