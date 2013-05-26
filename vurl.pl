@@ -2913,8 +2913,8 @@ sub setenviro {
     {
         return "Usage: !setenviro [position] [token]";
     }
-    push($session_var{env_coords}, $inputlist[0]);
-    push($session_var{env_tokens}, $inputlist[1]);
+    push(@{$session_var{env_coords}}, $inputlist[0]);
+    push(@{$session_var{env_tokens}}, $inputlist[1]);
     
     return "Environment marker set.";
 }
