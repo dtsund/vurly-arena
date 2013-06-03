@@ -2824,7 +2824,7 @@ sub pair {
 	{
 		$session_var{first_player} = $nick;
 		$session_var{first_move} = $arg;
-		my $returnstring = "Move recieved from " . $nick . ".";
+		my $returnstring = "Move received from " . $nick . ".";
 		$server->command("MSG $channel $returnstring");
 		return "'kay"
 	}
@@ -2839,7 +2839,7 @@ sub pair {
 	{
 		$session_var{second_player} = $nick;
 		$session_var{second_move} = $arg;
-		my $returnstring = "Moves recieved from " . $session_var{first_player} . " and " . $nick . ".";
+		my $returnstring = "Moves received from " . $session_var{first_player} . " and " . $nick . ".";
 		$server->command("MSG $channel $returnstring");
 		return "'kay"
 	}
