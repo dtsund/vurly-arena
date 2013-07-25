@@ -2754,7 +2754,8 @@ sub kalir {
 	                     "DEAD.",
 	                     "LEG.",
 	                     "MAXIMUM KILLDUDES.",
-	                     "CRAB."
+	                     "CRAB.",
+	                     "OVERCHARGE THE BATTLEFIST."
 	                   );
 	
 	return $kalirphrases[rand @kalirphrases];
