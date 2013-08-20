@@ -775,6 +775,10 @@ my %command = (
 		'sub' => \&setarena,
 		usage => "!setarena",
 	},
+	battlehand => {
+	    'sub' => \&battlehand,
+	    usage => "!battlehand",
+	},
 );
 
 my @maths_fns = qw(
@@ -792,7 +796,7 @@ my @utility_fns = qw(
 	ftl       tasen      komato     uncyclopedia
 	kalir     hanftl     sober      pair
 	reveal    settrap    showtrap   cleartrap
-	setenviro environment
+	setenviro environment battlehand
 	setarena
 );
 
@@ -2935,3 +2939,89 @@ sub environment {
     $session_var{env_tokens} = [];
     return $returnstring;
 }
+
+sub battlehand {
+    my $returnstring = "";
+    my @cardlist = (
+                     "Irresistible",
+                     "Phantom",
+                     "Perceptional",
+                     "Grapnel",
+                     "Mechanical",
+                     "Unstoppable",
+                     "Bulwark",
+                     "Crimson",
+                     "Catatonic",
+                     "Blind",
+                     "Dreamscape",
+                     "Mirage",
+                     "Gravity",
+                     "Phase",
+                     "Rocket",
+                     "Leaping",
+                     "Vapid",
+                     "Vengeful",
+                     "Retribution",
+                     "Collection",
+                     "Displacement",
+                     "Villainous",
+                     "Hooked",
+                     "Psycho",
+                     "Assassin",
+                     "Sweeping",
+                     "Advancing",
+                     "Folding",
+                     "Minimized",
+                     "Warded",
+                     "Dual Wield",
+                     "Bladed",
+                     "Whip",
+                     "Quicksilver",
+                     "Exoskeletal",
+                     "Teleport",
+                     "Lure",
+                     "Binding",
+                     "Venomous",
+                     "Rooted",
+                     "Vine",
+                     "Fusion",
+                     "Feinting",
+                     "Precision",
+                     "Calculated",
+                     "Snapback",
+                     "Demolition",
+                     "Cybernetic",
+                     "Cover",
+                     "Wandering",
+                     "Polymorphed",
+                     "Gunner",
+                     "Negation",
+                     "Fool\'s",
+                     "Mimic\'s",
+                     "Compelling",
+                     "Reaver",
+                     "Jugular",
+                     "Siren",
+                     "Judgment",
+                     "Glorious",
+                     "Paladin",
+                     "Vengeance",
+                     "Urgent",
+                     "Sinuous",
+                     "Sturdy"
+                   );
+    for (my $i = 0; $i < 5; $i++)
+    {
+        my $index = rand @cardlist;
+        $returnstring = $returnstring . $cardlist[$index];
+        if($i != 4)
+        {
+            $returnstring = $returnstring . ", ";
+        }
+        
+        splice(@cardlist, $index, 1);
+    }
+    
+    return $returnstring;
+}
+
