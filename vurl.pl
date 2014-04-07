@@ -2804,7 +2804,8 @@ sub hanftl {
 	               "Shield hacking ship with a beam drone?  REALLY?",
 	               "OH GOD THEY ACTUALLY HIT WITH A FIRE BEAM",
 	               "Why does the Flagship have a Defense II drone?",
-	               "Christ, just hit four 'NOPE NOTHING' beacons in a row"
+	               "Christ, just hit four 'NOPE NOTHING' beacons in a row",
+	               "HOLY SHIT ENEMY SHIP WITH BURST LASER THREE AND TWO BEAM DRONES IN AN ASTEROID FIELD WHERE DID ALL MY HULL POINTS GO"
 	             );
 	
 	return $hanftl[rand @hanftl];
