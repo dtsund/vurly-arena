@@ -264,7 +264,7 @@ my @V_HOSTNAME_ENDINGS = (
 	'badger@satgnu\.net',
 	'@unaffiliated/asema',
 	'@unaffiliated/kalir',
-	'~detasund@*',
+	'~dtsund@*',
 	'~zetsubou@*',
 	'@unaffiliated/quairel',
 	'@tremulous/developer/benmachine',
@@ -273,7 +273,7 @@ my @V_HOSTNAME_ENDINGS = (
 	## mwa deems *@satgnu.net to be trustworthy :P
 
 my %global_var = (
-	home            => '/home/badger',
+	home            => '/home/fleece',
 	script_path     => '.irssi/scripts',
 	adverbs_file    => 'adverbs.txt',
 	verbs_file      => 'verbs.txt',
@@ -837,7 +837,8 @@ my %autoresponse = (
 		=> \&yarr,
 	qr/(\boh de[ea]r\b)+/i
 		=> \&ohdear,
-	qr/^!help$/ => sub { return 'http://badger.satgnu.net/vurlhelp.txt' },
+	qr/^!help$/ => sub { return 
+'http://fleece.pinkserv2.net/vurlhelp.txt' },
 	qr/dears/ => sub { return 'mhmhmhmhm, dears' },
 	qr/mhm(hm)+/ => sub { return 'mhmhmhmhm, dears' },
 	qr/^:$/
@@ -2712,7 +2713,17 @@ sub ftl {
 	                 "Adjudicator",
 	                 "Noether",
 	                 "Bravais",
-	                 "Carnelian"
+	                 "Carnelian",
+			 "Swallow",
+			 "Tetragon",
+			 "Fregatidae",
+			 "Cerenkov",
+			 "Theseus",
+			 "Ariolimax",
+			 "Tektite",
+			 "Simo-H",
+			 "Kruos",
+			 "Shrike"
 	               );
 	
 	my $shipChosen = rand @ftlships;
@@ -2805,7 +2816,9 @@ sub hanftl {
 	               "OH GOD THEY ACTUALLY HIT WITH A FIRE BEAM",
 	               "Why does the Flagship have a Defense II drone?",
 	               "Christ, just hit four 'NOPE NOTHING' beacons in a row",
-	               "HOLY SHIT ENEMY SHIP WITH BURST LASER THREE AND TWO BEAM DRONES IN AN ASTEROID FIELD WHERE DID ALL MY HULL POINTS GO"
+		       "OH GOD MY ENGINES ARE BURNING ON FIRE AND IT HAS SO MANY SCARY WEAPONS",
+		       "WHY IS MY MEDBAY ON FIRE",
+		       "HOLY SHIT ENEMY SHIP WITH BURST LASER THREE AND TWO BEAM DRONES IN AN ASTEROID FIELD WHERE DID ALL MY HULL POINTS GO"
 	             );
 	
 	return $hanftl[rand @hanftl];
