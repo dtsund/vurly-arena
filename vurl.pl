@@ -837,8 +837,7 @@ my %autoresponse = (
 		=> \&yarr,
 	qr/(\boh de[ea]r\b)+/i
 		=> \&ohdear,
-	qr/^!help$/ => sub { return 
-'http://fleece.pinkserv2.net/vurlhelp.txt' },
+	qr/^!help$/ => sub { return 'http://fleece.pinkserv2.net/vurlhelp.txt' },
 	qr/dears/ => sub { return 'mhmhmhmhm, dears' },
 	qr/mhm(hm)+/ => sub { return 'mhmhmhmhm, dears' },
 	qr/^:$/
