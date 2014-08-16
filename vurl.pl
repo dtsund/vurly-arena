@@ -2963,7 +2963,7 @@ sub battlehand {
                      "Phantom",
                      "Perceptional",
                      "Grapnel",
-                     "Mechanical,"
+                     "Mechanical",
                      "Unstoppable",
                      "Bulwark",
                      "Crimson",
