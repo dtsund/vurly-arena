@@ -464,10 +464,6 @@ my %command = (
 		'sub' => \&nickchange,
 		usage => "!nick foo",
 	},
-	sweedee		=> {
-		'sub' => sub { return "Sweedee? Sweedee Sweedee! O_O"; },
-		usage => "!sweedee",
-	},
 	eek     => {
 		'sub' => \&eek,
 		usage => "!eek",
