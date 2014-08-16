@@ -3054,12 +3054,12 @@ sub coup {
     	    if (game_running) {
     	    	return "Get out of here, pleb. (Game in session, please wait.)";
     	    } else {
-    	        push $session_var{player_list}, $nick;
+    	        push ($session_var{player_list}, $nick);
     	        $server->command("MSG $channel $nick wishes to start a game of Coup.");
-    	        # if ($#session_var{player_list} == 6) {
+    	        # if ($#session_var{player_list} == 6){ 
     	            # HELLO I AM PSEUDOCODE THAT SAYS RUN THE STARTGAME BULLSHIT HERE	
     	        # }
-    	        return $returnstring
+    	        return $returnstring;
     	    }
     	}
     	when ('dropout') {
@@ -3069,7 +3069,7 @@ sub coup {
     	    } else {
     	    	return "You eschew that which you do not have, unlocking the secret enlightenment ending. This does nothing.";
     	    }
-    	    return $returnstring
+    	    return $returnstring;
     	}
         default {
             return "The Court does not recognize this command (use !coup help or !coup reference).";	
