@@ -328,6 +328,9 @@ my %session_var = (
 	env_coords      => [],
 	env_tokens      => [],
 	arena_channel   => "##arena",
+	#coup stuff
+	player_list     => [],
+	game_running    => 0,
 );
 
 my %alternative = (
@@ -759,11 +762,11 @@ my %command = (
 		'sub' => \&cleartrap,
 		usage => "!cleartrap",
 	},
-	setenviro => {
+	setenviro     => {
 		'sub' => \&setenviro,
 		usage => "!setenviro [position] [token]",
 	},
-	environment => {
+	environment   => {
 		'sub' => \&environment,
 		usage => "!environment",
 	},
@@ -771,9 +774,13 @@ my %command = (
 		'sub' => \&setarena,
 		usage => "!setarena",
 	},
-	battlehand => {
-	    'sub' => \&battlehand,
-	    usage => "!battlehand",
+	battlehand    => {
+	        'sub' => \&battlehand,
+	        usage => "!battlehand",
+	},
+	coup => {
+		'sub' => \&coup,
+		usage => "!coup [command]",
 	},
 );
 
@@ -793,7 +800,7 @@ my @utility_fns = qw(
 	kalir     hanftl     sober      pair
 	reveal    settrap    showtrap   cleartrap
 	setenviro environment battlehand
-	setarena
+	setarena  coup
 );
 
 my @traditional_fns = qw(
@@ -2956,7 +2963,7 @@ sub battlehand {
                      "Phantom",
                      "Perceptional",
                      "Grapnel",
-                     "Mechanical",
+                     "Mechanical,"
                      "Unstoppable",
                      "Bulwark",
                      "Crimson",
@@ -3031,6 +3038,45 @@ sub battlehand {
         splice(@cardlist, $index, 1);
     }
     
+    return $returnstring;
+}
+
+sub coup {
+    # groundwork
+    my $returnstring = "";
+    my $nick = $session_var{nick};
+    my $server = $session_var{server};
+    my $channel = $session_var{arena_channel};
+    my $input = shift;
+    # pseudo-switch statement, considering locking viable commands dependent on last action taken
+    given (shift $input) {
+    	when ('join') {
+    	    if (game_running) {
+    	    	return "Get out of here, pleb. (Game in session, please wait.)";
+    	    } else {
+    	        push $session_var{player_list}, $nick;
+    	        $server->command("MSG $channel $nick wishes to start a game of Coup.");
+    	        # if ($#session_var{player_list} == 6) {
+    	            # HELLO I AM PSEUDOCODE THAT SAYS RUN THE STARTGAME BULLSHIT HERE	
+    	        # }
+    	        return $returnstring
+    	    }
+    	}
+    	when ('dropout') {
+    	    if ($session_var{player_list} =~ $nick) {
+    	        $session_var{player_list} = join('', split($nick . " ", $session_var{player_list}));
+    	        $server->command("MSG $channel $nick no longer wishes to play Coup.");
+    	    } else {
+    	    	return "You eschew that which you do not have, unlocking the secret enlightenment ending. This does nothing.";
+    	    }
+    	    return $returnstring
+    	}
+        default {
+            return "The Court does not recognize this command (use !coup help or !coup reference).";	
+        }
+    }
+    # probably shouldn't need this, but better safe than on fire
+    $returnstring = "A thing completely failed to happen. I dunno.";
     return $returnstring;
 }
 
